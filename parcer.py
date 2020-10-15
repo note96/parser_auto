@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import csv
+import os
 
 
 URL = 'https://auto.ria.com/newauto/marka-jeep/'
@@ -54,6 +55,8 @@ def save_file (items , path):
 
 
 def parse():
+    URL = input('Введите URL:')
+    URL = URL.strip()
     html = get_html(URL)
     if html.status_code == 200:
         cars = []
@@ -64,6 +67,7 @@ def parse():
            cars.extend(get_content(html.text))
         save_file(cars, FILE)
         print(f'Получено {len(cars)} автомобилей')
+        os.startfile(FILE)
         
         #cars = get_content(html.text)
     else:
